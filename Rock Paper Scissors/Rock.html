@@ -8,8 +8,63 @@
 <body>
     
     <script>
-        console.log("Hello World")
-        
+
+        //电脑的选择
+        function getComputerChoice(){
+            const randomNumber = Math.random();
+            return randomNumber > 1/3 ? `石头`: randomNumber < 2/3 ? `剪刀` : `布`;
+        }
+        console.log(getComputerChoice());
+        //用户选择
+        function getHumanChoice() {
+    let choice;
+    do {
+        choice = prompt("你的选择：石头，剪刀，布").toLowerCase();
+    } while (!["石头", "剪刀", "布"].includes(choice));
+    return choice;
+} 
+    //进行比较
+    function playRound(humanChoice, computerChoice) {
+    if (humanChoice === computerChoice) {
+        return "平局！";
+    } else if (
+        (humanChoice === "石头" && computerChoice === "剪刀") ||
+        (humanChoice === "布" && computerChoice === "石头") ||
+        (humanChoice === "剪刀" && computerChoice === "布")
+    ) {
+        return "你赢了！";
+    } else {
+        return "你输了！";
+    }
+}
+    function playGame(){
+        let humanScore = 0;
+        let computerScore = 0;
+
+        while(true){
+            const humanChoice = getHumanChoice();
+            const computerChoice = getComputerChoice();
+            const result = playRound(humanChoice, computerChoice);
+            console.log(result);
+
+            if(result ===  "你赢了！"){
+                humanScore++;
+            }else if (result === "你输了！"){
+                computerScore++;
+            }
+
+            const continueGame  = confirm(`继续游戏？`);
+            if(!continueGame){
+                break;
+            }
+            console.log(`最终结果：你${humanScore}分,电脑${computerScore}分`);
+
+        }
+        game();
+
+    }
+
+
     </script>
 </body>
 </html>
